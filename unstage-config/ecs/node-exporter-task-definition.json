@@ -1,0 +1,48 @@
+{
+  "family": "unstage-node-exporter-td",
+  "networkMode": "bridge",
+  "pidMode": "host",
+  "containerDefinitions": [
+    {
+      "name": "node-exporter",
+      "image": "quay.io/prometheus/node-exporter:latest",
+      "cpu": 0,
+      "memory": 64,
+      "portMappings": [
+        {
+          "name": "node-exporter-9100-tcp",
+          "containerPort": 9100,
+          "hostPort": 9100,
+          "protocol": "tcp"
+        }
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "rootfs",
+          "containerPath": "/host",
+          "readOnly": true
+        }
+      ],
+      "command": [
+        "--path.rootfs=/host"
+      ],
+      "essential": true
+    }
+  ],
+  "volumes": [
+    {
+      "name": "rootfs",
+      "host": {
+        "sourcePath": "/"
+      }
+    }
+  ],
+  "requiresCompatibilities": ["EC2"],
+  "cpu": "128",
+  "memory": "64",
+  "executionRoleArn": "ecs-task-execution-role",
+  "runtimePlatform": {
+    "cpuArchitecture": "X86_64",
+    "operatingSystemFamily": "LINUX"
+  }
+}

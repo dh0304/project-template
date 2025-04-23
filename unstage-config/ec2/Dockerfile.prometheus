@@ -1,0 +1,4 @@
+FROM bitnami/prometheus:latest
+WORKDIR /etc/prometheus
+COPY unstage-config/ec2/prometheus.yml ./prometheus.yml
+EXPOSE 9090

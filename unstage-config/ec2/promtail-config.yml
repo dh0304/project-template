@@ -1,0 +1,19 @@
+# /etc/promtail/config.yml
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml
+
+clients:
+  - url: http://192.168.0.45:3100/loki/api/v1/push # ip와 port는 Loki가 위치하는 곳
+
+scrape_configs:
+  - job_name: spring-log-dev
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: spring
+          __path__: /shared-logs/*.log

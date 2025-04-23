@@ -1,0 +1,14 @@
+spring:
+  config:
+    import:
+      - core-dev.yml
+      - monitoring-dev.yml
+
+logging:
+  level:
+    root: info
+    com.unstage: debug
+    org.hibernate.SQL: debug
+
+unstage-version:
+  version: 0.0.1.1

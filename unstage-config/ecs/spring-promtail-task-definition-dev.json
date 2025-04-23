@@ -1,0 +1,68 @@
+{
+  "family": "spring-promtail-td-dev",
+  "networkMode": "bridge",
+  "requiresCompatibilities": ["EC2"],
+  "cpu": "576",
+  "memory": "576",
+  "executionRoleArn": "ecs-task-execution-role",
+  "volumes": [
+    {
+      "name": "shared-logs"
+    }
+  ],
+  "containerDefinitions": [
+    {
+      "name": "was-spring",
+      "image": "<WAS_IMAGE_PLACEHOLDER>",
+      "cpu": 0,
+      "memory": 512,
+      "memoryReservation": 393,
+      "essential": true,
+      "portMappings": [
+        {
+          "name": "was-spring-8080-tcp",
+          "containerPort": 8080,
+          "hostPort": 80,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        {
+          "name": "SPRING_PROFILES_ACTIVE",
+          "value": "dev"
+        }
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "shared-logs",
+          "containerPath": "/app/log"
+        }
+      ]
+    },
+    {
+      "name": "promtail",
+      "image": "<PROMTAIL_IMAGE_PLACEHOLDER>",
+      "cpu": 0,
+      "memory": 64,
+      "essential": true,
+      "portMappings": [
+        {
+          "name": "promtail-9080-tcp",
+          "containerPort": 9080,
+          "hostPort": 9080,
+          "protocol": "tcp"
+        }
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "shared-logs",
+          "containerPath": "/shared-logs"
+        }
+      ]
+    }
+  ],
+  "runtimePlatform": {
+    "cpuArchitecture": "X86_64",
+    "operatingSystemFamily": "LINUX"
+  }
+}

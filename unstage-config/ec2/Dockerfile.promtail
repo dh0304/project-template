@@ -1,0 +1,3 @@
+FROM grafana/promtail:latest
+COPY unstage-config/ec2/promtail-config.yml /etc/promtail/config.yml
+EXPOSE 9080

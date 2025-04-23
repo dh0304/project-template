@@ -1,0 +1,29 @@
+{
+  "family": "promtail-dev-td",
+  "networkMode": "bridge",
+  "requiresCompatibilities": ["EC2"],
+  "cpu": "128",
+  "memory": "64",
+  "executionRoleArn": "ecs-task-execution-role",
+  "containerDefinitions": [
+    {
+      "name": "promtail",
+      "image": "<IMAGE_PLACEHOLDER>",
+      "cpu": 0,
+      "memory": 64,
+      "essential": true,
+      "portMappings": [
+        {
+          "name": "promtail-9080-tcp",
+          "containerPort": 9080,
+          "hostPort": 9080,
+          "protocol": "tcp"
+        }
+      ]
+    }
+  ],
+  "runtimePlatform": {
+    "cpuArchitecture": "X86_64",
+    "operatingSystemFamily": "LINUX"
+  }
+}

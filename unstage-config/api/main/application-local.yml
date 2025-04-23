@@ -1,0 +1,14 @@
+spring:
+  config:
+    import:
+      - core-local.yml
+      - monitoring-local.yml
+
+logging:
+  level:
+    root: info
+    com.unstage: debug
+    org.hibernate.SQL: debug
+
+unstage-version:
+  version: 0.0.2

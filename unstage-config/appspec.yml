@@ -1,0 +1,14 @@
+# 설정 전용 appspec.yml
+
+version: 0.0
+os: linux
+files:
+  - source: ec2
+    destination: /home/ubuntu/unstage-config/
+    overwrite: yes
+
+permissions:
+  - object: /
+    pattern: "**"
+    owner: ubuntu
+    group: ubuntu

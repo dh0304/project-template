@@ -1,0 +1,4 @@
+FROM grafana/loki:latest
+WORKDIR /etc/loki
+COPY unstage-config/ec2/local-config.yml ./local-config.yml
+EXPOSE 3100

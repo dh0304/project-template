@@ -1,0 +1,61 @@
+{
+  "family": "prometheus-grafana-task",
+  "networkMode": "bridge",
+  "requiresCompatibilities": ["EC2"],
+  "cpu": "192",
+  "memory": "384",
+  "executionRoleArn": "ecs-task-execution-role",
+  "volumes": [
+    {
+      "name": "grafana-config",
+      "host": {
+        "sourcePath": "/home/ec2-user/grafana"
+      }
+    }
+  ],
+  "containerDefinitions": [
+    {
+      "name": "prometheus",
+      "image": "<IMAGE_PLACEHOLDER>",
+      "cpu": 128,
+      "memory": 256,
+      "essential": true,
+      "portMappings": [
+        {
+          "name": "prometheus-9090-tcp",
+          "containerPort": 9090,
+          "hostPort": 9090,
+          "protocol": "tcp"
+        }
+      ],
+      "command": [
+        "--config.file=/etc/prometheus/prometheus.yml"
+      ]
+    },
+    {
+      "name": "grafana",
+      "image": "grafana/grafana:latest",
+      "cpu": 64,
+      "memory": 128,
+      "essential": true,
+      "portMappings": [
+        {
+          "name": "grafana-3000-tcp",
+          "containerPort": 3000,
+          "hostPort": 3000,
+          "protocol": "tcp"
+        }
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "grafana-config",
+          "containerPath": "/var/lib/grafana"
+        }
+      ]
+    }
+  ],
+  "runtimePlatform": {
+    "cpuArchitecture": "X86_64",
+    "operatingSystemFamily": "LINUX"
+  }
+}

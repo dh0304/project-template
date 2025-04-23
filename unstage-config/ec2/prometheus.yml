@@ -1,0 +1,18 @@
+global:
+  scrape_interval: 60s  # 스크래핑 주기
+
+scrape_configs:
+  # targets: 같은 vpc의 경우 private ip 등록
+  - job_name: 'was-node-exporter'
+    static_configs:
+      - targets: ['192.168.0.48:9100']
+  - job_name: 'monitoring-node-exporter'
+    static_configs:
+      - targets: ['192.168.0.45:9100']
+  - job_name: "spring-actuator"
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: [ '192.168.0.48:80' ] # 호스트포트는 80, 컨테이너포트는 8080 이므로 80포트를 열어준다
+  - job_name: "prometheus" # 프로메테우스가 자신을 셀프로 성능 측정
+    static_configs:
+      - targets: ['192.168.0.45:9090']

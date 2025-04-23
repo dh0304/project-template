@@ -1,0 +1,32 @@
+{
+  "family": "loki-td",
+  "networkMode": "bridge",
+  "requiresCompatibilities": ["EC2"],
+  "cpu": "128",
+  "memory": "300",
+  "executionRoleArn": "ecs-task-execution-role",
+  "containerDefinitions": [
+    {
+      "name": "loki",
+      "image": "<IMAGE_PLACEHOLDER>",
+      "cpu": 128,
+      "memory": 300,
+      "essential": true,
+      "portMappings": [
+        {
+          "name": "loki-3100-tcp",
+          "containerPort": 3100,
+          "hostPort": 3100,
+          "protocol": "tcp"
+        }
+      ],
+      "command": [
+        "-config.file=/etc/loki/local-config.yml"
+      ]
+    }
+  ],
+  "runtimePlatform": {
+    "cpuArchitecture": "X86_64",
+    "operatingSystemFamily": "LINUX"
+  }
+}
